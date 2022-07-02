@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier .  --write",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -12,8 +14,13 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^9.1.1",
+    "prettier": "2.7.1",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
+    "vite-plugin-eslint": "^1.6.1",
     "vue-tsc": "^0.34.7"
   }
 }
