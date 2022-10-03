@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 </script>
 
+<!-- eslint-disable vue/no-multiple-template-root -->
 <template>
   <Navbar></Navbar>
   <img alt="Vue logo" src="./assets/logo.png" />
