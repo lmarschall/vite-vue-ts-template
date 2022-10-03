@@ -1,28 +1,17 @@
 
-FROM node:16
-
-RUN apt-get update
-RUN apt-get install gettext-base
-
-# install simple http server for serving static content
-RUN npm install --location=global http-server
-
-# make the 'app' folder the current working directory
-WORKDIR /app
-
-# copy both 'package.json' and 'package-lock.json' (if available)
+# define build stage and create gzipped files
+FROM node:16 as build-stage
+WORKDIR /build
 COPY package*.json ./
-
-# install project dependencies
 RUN npm install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
-
-# build app for production with minification
 RUN npm run build
-
 RUN npx gzipper compress ./dist
 
+# define run stage and serve application
+FROM node:16 as run-stage
+WORKDIR /app
+COPY --from=build-stage /build/dist/ ./dist
+RUN npm install -g http-server
 EXPOSE 8080
-CMD [ "http-server", "dist", "--gzip", "--proxy", "http://localhost:3000?" ]
+CMD [ "http-server", "dist", "--gzip", "--proxy", "http://localhost:8080?" ]
