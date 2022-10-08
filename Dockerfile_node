@@ -11,8 +11,9 @@ RUN npm run build
 RUN npx gzipper compress ./dist
 
 # define run stage and serve application
-FROM caddy:2-alpine as run-stage
+FROM node:16-alpine as run-stage
 WORKDIR /app
-COPY --from=build-stage /build/dist/ /app
-COPY ./Caddyfile /etc/caddy/Caddyfile
+COPY --from=build-stage /build/dist/ ./dist
+RUN npm install -g http-server
 EXPOSE 8080
+CMD [ "http-server", "dist", "--gzip", "--proxy", "http://localhost:8080?" ]
