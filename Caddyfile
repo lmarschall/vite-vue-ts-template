@@ -14,3 +14,4 @@ log {
     format console
     level INFO
 }
+try_files {path} /index.html
