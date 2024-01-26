@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 
 export const useThemeStore = defineStore("theme", () => {
-    const theme = useStorage("theme", "");
+    const theme = useStorage("theme", "auto");
 
     function setTheme(newTheme: string) {
         theme.value = newTheme;

@@ -50,18 +50,19 @@
 <script setup lang="ts">
 
 import { onMounted, ref } from "vue";
-import {useThemeStore } from "../stores/theme";
+import { useThemeStore } from "../stores/theme";
 
 const activeTheme = ref("");
 const themeStore = useThemeStore();
 
-onMounted(async () => {
+onMounted(() => {
   setTheme(themeStore.getTheme());
+  console.log("setting theme: " + themeStore.getTheme());
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     const newColorScheme = event.matches ? "dark" : "light";
     setTheme(newColorScheme);
-});
+  });
 });
 
 const chooseTheme = (theme: string) => {
